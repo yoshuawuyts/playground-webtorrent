@@ -1,0 +1,65 @@
+{
+  "name": "playground-webtorrent",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm-modules",
+    "deps": "dependency-check . && dependency-check . --extra --no-dev",
+    "dev": "linklocal link -r && linklocal list -r | bulk -c 'npm install --production'",
+    "prepublish": "if [ \"$NODE_ENV\" != \"production\" ]; then npm run dev; fi",
+    "start": "node .",
+    "start:watch": "NODE_ENV=development nodemon -i 'node_modules/' -i 'client*' -i 'component*' -- ./index.js | garnish",
+    "test": "standard && npm run deps && NODE_ENV=test node test",
+    "test:cov": "standard && npm run deps && NODE_ENV=test istanbul cover test.js",
+    "watch": "npm run start:watch"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "sheetify/transform",
+        {
+          "use": [
+            [
+              "sheetify-cssnext",
+              {
+                "sourcemap": false
+              }
+            ]
+          ]
+        }
+      ],
+      "hyperxify",
+      "brfs"
+    ]
+  },
+  "dependencies": {
+    "bankai": "^2.0.1",
+    "bittorrent-tracker": "^7.3.2",
+    "bole": "^2.0.0",
+    "browserify": "^13.0.0",
+    "css-wipe": "^4.2.1",
+    "http-ndjson": "^3.0.0",
+    "hyperx": "^2.0.2",
+    "hyperxify": "^2.0.1",
+    "insert-css": "^0.2.0",
+    "pull-http": "^1.0.1",
+    "pull-stream": "^3.2.0",
+    "server-router": "^1.1.3",
+    "server-summary": "^5.0.1",
+    "sheet-router": "^1.4.1",
+    "sheetify": "^4.1.0",
+    "sheetify-cssnext": "^1.0.7",
+    "virtual-app": "^3.0.0",
+    "virtual-dom": "^2.1.1"
+  },
+  "devDependencies": {
+    "bulk": "^2.0.0",
+    "dependency-check": "^2.5.1",
+    "garnish": "^5.0.1",
+    "istanbul": "^0.4.2",
+    "linklocal": "^2.6.0",
+    "nodemon": "^1.9.1",
+    "standard": "^6.0.8",
+    "tape": "^4.5.1"
+  }
+}
