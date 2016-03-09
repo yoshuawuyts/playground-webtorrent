@@ -9,13 +9,20 @@ const bole = require('bole')
 const http = require('http')
 const path = require('path')
 
+const createTracker = require('./tracker')
 const clientp = path.join(__dirname, 'client.js')
 const log = bole('main')
 
-createServer({ port: 1337, logLevel: 'debug' })
+createServer({
+  logLevel: 'debug',
+  ports: {
+    http: 1337,
+    tracker: 9003
+  }
+})
 
-function createServer (argv) {
-  bole.output({ level: argv.logLevel, stream: process.stdout })
+function createServer (config) {
+  bole.output({ level: config.logLevel, stream: process.stdout })
   const router = createRouter()
   const server = http.createServer(function (req, res) {
     const setSize = logHttp(req, res, log.debug)
@@ -24,7 +31,8 @@ function createServer (argv) {
     const sink = pullHttp.createSink(req, res, setSize)
     pull(source, through, sink)
   })
-  server.listen(argv.port, summary(server))
+  server.listen(config.ports.http, summary(server))
+  createTracker(config)
 }
 
 function createRouter () {
