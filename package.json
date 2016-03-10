@@ -38,6 +38,7 @@
     "bittorrent-tracker": "^7.3.2",
     "bole": "^2.0.0",
     "browserify": "^13.0.0",
+    "create-torrent": "^3.22.2",
     "css-wipe": "^4.2.1",
     "downgrade": "^1.1.1",
     "http-ndjson": "^3.0.0",
@@ -55,7 +56,8 @@
     "sheetify-cssnext": "^1.0.7",
     "unlimited": "^1.2.0",
     "virtual-app": "^3.0.0",
-    "virtual-dom": "^2.1.1"
+    "virtual-dom": "^2.1.1",
+    "webtorrent": "^0.83.0"
   },
   "devDependencies": {
     "bulk": "^2.0.0",

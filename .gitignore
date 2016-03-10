@@ -3,3 +3,5 @@ coverage/
 tmp/
 npm-debug.log*
 .DS_Store
+*.mov
+resources/rec1.torrent
