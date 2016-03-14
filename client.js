@@ -1,16 +1,16 @@
-const vtorrent = require('virtual-webtorrent')
-const vdom = require('virtual-dom')
-const hyperx = require('hyperx')
-const fs = require('fs')
+var dragDrop = require('drag-drop')
+var WebTorrent = require('webtorrent')
+const sf = require('sheetify')
 
-const TORRENT = fs.readFileSync('./resources/rec1.torrent')
+sf('./index.css', { global: true })
 
-const hx = hyperx(vdom.h)
+var client = new WebTorrent()
 
-const tree = hx`
-  <main>
-    ${vtorrent({ torrent: TORRENT })}
-  </main>
-`
-
-document.body.appendChild(vdom.create(tree))
+// When user drops files on the browser, create a new torrent and start seeding it!
+dragDrop('body', function (files) {
+  console.log(files)
+  client.seed(files, function (torrent) {
+    // Client is seeding the file!
+    console.log('Torrent magnet link:', torrent.magnetURI)
+  })
+})

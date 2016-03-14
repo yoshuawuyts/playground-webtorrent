@@ -10,6 +10,8 @@ experimenting with webtorrent.
 - [ ] create a tracker
 - [ ] seed torrent from server
 - [ ] stream torrent from client
+- [ ] figure out how to create HTML file objects
+- [ ] create virtual-dom drag-drop section
 
 ## FAQ
 ### Why shouldn't we use electron-hybrid?
