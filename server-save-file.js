@@ -20,7 +20,7 @@ function createRouter () {
   const router = serverRouter('/404')
   router.on('/404', handleNotFound)
   router.on('/file', {
-    get: getFile,
+    get: getFile
     // post: uploadFile
   })
   router.on('/list', listFiles)
@@ -34,37 +34,44 @@ function handleNotFound (req, res) {
 
 // GET /file?file=README.md
 function getFile (req, res) {
-  const query = url.parse(req.url, 2)
+  const query = url.parse(req.url, 2).query
   const file = query.file
 
   if (!file) {
     const msg = 'no filename specified'
-    log.info()
+    log.info(msg)
     res.statusCode = 500
     return res.end(msg)
   }
 
-  store.exists({ key: file }, function (err, exists) {
+  db.get(file, function (err, value) {
     if (err) {
       res.statusCode = 500
       log.error(err)
       return res.end(err.message)
     }
 
-    if (!exists) {
-      const msg = `file ${file} doesn't exist`
-      res.statusCode = 400
-      log.info(msg)
-      return res.end(msg)
-    }
+    store.exists({ key: value }, function (err, exists) {
+      if (err) {
+        res.statusCode = 500
+        log.error(err)
+        return res.end(err.message)
+      }
 
-    console.trace(file)
-    const rs = store.createReadStream({ key: file })
-    const filename = path.basename(file)
-    const mimetype = mime.lookup(filename)
-    res.setHeader('Content-disposition', 'attachment; filename=' + filename)
-    res.setHeader('Content-type', mimetype)
-    rs.pipe(res)
+      if (!exists) {
+        const msg = `${file} doesn't exist`
+        res.statusCode = 400
+        log.info(msg)
+        return res.end(msg)
+      }
+
+      const rs = store.createReadStream({ key: value })
+      const filename = path.basename(file)
+      const mimetype = mime.lookup(filename)
+      res.setHeader('Content-disposition', 'attachment; filename=' + filename)
+      res.setHeader('Content-type', mimetype)
+      rs.pipe(res)
+    })
   })
 }
 
