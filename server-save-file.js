@@ -20,8 +20,8 @@ function createRouter () {
   const router = serverRouter('/404')
   router.on('/404', handleNotFound)
   router.on('/file', {
-    get: getFile
-    // post: uploadFile
+    get: getFile,
+    post: uploadFile
   })
   router.on('/list', listFiles)
   return router
