@@ -37,6 +37,7 @@
     "bittorrent-dht": "^7.0.0",
     "bittorrent-tracker": "^7.3.2",
     "bole": "^2.0.0",
+    "brfs": "^1.4.3",
     "browserify": "^13.0.0",
     "busboy": "^0.2.12",
     "content-addressable-blob-store": "^4.3.0",
@@ -44,8 +45,6 @@
     "css-wipe": "^4.2.1",
     "downgrade": "^1.1.1",
     "drag-drop": "^2.11.0",
-    "electron-prebuilt": "^0.36.10",
-    "electron-spawn": "^4.1.1",
     "fs-blob-store": "^5.2.1",
     "http-ndjson": "^3.0.0",
     "hyperx": "^2.0.2",
@@ -65,7 +64,8 @@
     "unlimited": "^1.2.0",
     "virtual-app": "^3.0.0",
     "virtual-dom": "^2.1.1",
-    "webtorrent": "^0.83.0"
+    "webtorrent": "^0.83.0",
+    "webtorrent-hybrid": "^1.0.0"
   },
   "devDependencies": {
     "bulk": "^2.0.0",

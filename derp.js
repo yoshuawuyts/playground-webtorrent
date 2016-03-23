@@ -1,4 +1,5 @@
 const webtorrent = require('webtorrent')
+const path = require('path')
 const fs = require('fs')
 
 const torrentfile = path.join(__dirname, 'resources/movies/rec1.mov')
