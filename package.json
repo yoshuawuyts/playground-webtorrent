@@ -6,12 +6,13 @@
     "clean": "rm-modules",
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "dev": "linklocal link -r && linklocal list -r | bulk -c 'npm install --production'",
-    "prepublish": "if [ \"$NODE_ENV\" != \"production\" ]; then npm run dev; fi",
+    "prepublish": "npm run snyk-protect; if [ \"$NODE_ENV\" != \"production\" ]; then npm run dev; fi",
     "start": "node .",
     "start:watch": "NODE_ENV=development nodemon -i 'node_modules/' -i 'client*' -i 'component*' -- ./index.js | garnish",
     "test": "standard && npm run deps && NODE_ENV=test node test",
     "test:cov": "standard && npm run deps && NODE_ENV=test istanbul cover test.js",
-    "watch": "npm run start:watch"
+    "watch": "npm run start:watch",
+    "snyk-protect": "snyk protect"
   },
   "browserify": {
     "transform": [
@@ -65,7 +66,8 @@
     "virtual-app": "^3.0.0",
     "virtual-dom": "^2.1.1",
     "webtorrent": "^0.83.0",
-    "webtorrent-hybrid": "^1.0.0"
+    "webtorrent-hybrid": "^1.0.0",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "bulk": "^2.0.0",
@@ -76,5 +78,6 @@
     "nodemon": "^1.9.1",
     "standard": "^6.0.8",
     "tape": "^4.5.1"
-  }
+  },
+  "snyk": true
 }
